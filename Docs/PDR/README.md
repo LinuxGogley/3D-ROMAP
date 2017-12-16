@@ -1,2 +1,2 @@
 # Preliminary Design Review
-## Documents each iteration of the design process.
+Documents each iteration of the design process.
