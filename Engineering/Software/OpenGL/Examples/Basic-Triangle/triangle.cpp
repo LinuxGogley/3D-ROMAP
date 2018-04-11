@@ -6,7 +6,7 @@ using namespace std;
 /* Use glew.h instead of gl.h to get all the GL prototypes declared */
 #include <GL/glew.h>
 /* Using SDL2 for the base window and OpenGL context init */
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 GLuint program;
 GLint attribute_coord2d;
@@ -15,7 +15,7 @@ bool init_resources(void)
 { 
     GLint compile_ok = GL_FALSE, link_ok = GL_FALSE;
 
-    GLuint vs = glCreateShader(GLD_VERTEX_SHADER);
+    GLuint vs = glCreateShader(GL_VERTEX_SHADER);
     const char *vs_source =
 	//"#version 100\n" // OpenGL ES 2.0
 	"#version 120\n" // OpenGL 2.1
@@ -24,7 +24,7 @@ bool init_resources(void)
 	"   gl_Position = vec4(coord2d, 0.0, 1.0);  "
 	"}";
     glShaderSource(vs, 1, &vs_source, NULL);
-    glCompiler(vs);
+    glCompileShader(vs);
     glGetShaderiv(vs, GL_COMPILE_STATUS, &compile_ok);
     if (!compile_ok)
     {
@@ -73,8 +73,43 @@ bool init_resources(void)
 }
 
 void render(SDL_Window* window)
-{ /* FILLED IN LATER */
+{ 
+    /* Clear the background as white */
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT);
 
+    glUseProgram(program);
+    glEnableVertexAttribArray(attribute_coord2d);
+    GLfloat triangle_vertices[] = {
+	0.0, 0.8,
+	-0.8, -0.8,
+	 0.8, -0.8,
+    };
+
+    /* Describe our vertices array to OpenGL
+     * (it can't guess its format automatically) */
+    glVertexAttribPointer
+    (
+        attribute_coord2d,  // attribute
+	2,		    // number of elements per vertex, here (x,y)
+	GL_FLOAT,	    // the type of each element
+	GL_FALSE,	    // take our value as-is
+	0,		    // no extra data between each position
+	triangle_vertices   // pointer to the C array
+    );
+
+    /* Push each element in buffer_vertices to the vertex shader */
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+
+    glDisableVertexAttribArray(attribute_coord2d);
+
+    /* Display the result */
+    SDL_GL_SwapWindow(window);
+}
+
+void free_resources()
+{
+    glDeleteProgram(program);
 }
 
 void mainLoop(SDL_Window* window)
@@ -98,7 +133,7 @@ int main(int argc, char* argv[])
     SDL_Window* window = SDL_CreateWindow("My First Triangle",
 	    SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 	    640, 480,
-	    SDL_WINDOW_RESIZEABLE | SDL_WINDOW_OPENGL);
+	    SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
     SDL_GL_CreateContext(window);
 
     /* Entension wrangler intializing */
@@ -111,7 +146,7 @@ int main(int argc, char* argv[])
 
     /* When all init functions run without errors,
      * the program can initialize the resources */
-    if (!init_resoures())
+    if (!init_resources())
 	return EXIT_FAILURE;
 
     /* We can display something if everything goes OK */
