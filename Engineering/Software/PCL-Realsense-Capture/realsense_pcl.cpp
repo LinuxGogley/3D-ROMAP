@@ -1,27 +1,25 @@
 // License: Apache 2.0. See LICENSE file in root directory.
 // Copyright(c) 2015-2017 Intel Corporation. All Rights Reserved.
 
-#include <iostream>
-
 #include <librealsense2/rs.hpp> // Include RealSense Cross Platform API
 #include "../../../examples/example.hpp" // Include short list of convenience functions for rendering
 
-#include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
 #include <pcl/filters/passthrough.h>
 
+/*
 // Struct for managing rotation of pointcloud view
 struct state {
     state() : yaw(0.0), pitch(0.0), last_x(0.0), last_y(0.0),
         ml(false), offset_x(0.0f), offset_y(0.0f) {}
     double yaw, pitch, last_x, last_y; bool ml; float offset_x, offset_y; 
 };
-
+*/
 using pcl_ptr = pcl::PointCloud<pcl::PointXYZ>::Ptr;
 
 // Helper functions
-void register_glfw_callbacks(window& app, state& app_state);
-void draw_pointcloud(window& app, state& app_state, const std::vector<pcl_ptr>& points);
+//void register_glfw_callbacks(window& app, state& app_state);
+//void draw_pointcloud(window& app, state& app_state, const std::vector<pcl_ptr>& points);
 
 pcl_ptr points_to_pcl(const rs2::points& points)
 {
@@ -88,10 +86,10 @@ int main(int argc, char * argv[]) try
     layers.push_back(pcl_points);
     layers.push_back(cloud_filtered);
 
-    while (app) // Application still alive?
+  /*  while (app) // Application still alive?
     {
         draw_pointcloud(app, app_state, layers);
-    }
+    } */
 
     return EXIT_SUCCESS;
 }
@@ -106,6 +104,7 @@ catch (const std::exception & e)
     return EXIT_FAILURE;
 }
 
+/*
 // Registers the state variable and callbacks to allow mouse control of the pointcloud
 void register_glfw_callbacks(window& app, state& app_state)
 {
@@ -143,6 +142,7 @@ void register_glfw_callbacks(window& app, state& app_state)
         }
     };
 }
+
 
 // Handles all the OpenGL calls needed to display the point cloud
 void draw_pointcloud(window& app, state& app_state, const std::vector<pcl_ptr>& points)
@@ -201,5 +201,5 @@ void draw_pointcloud(window& app, state& app_state, const std::vector<pcl_ptr>& 
     glPopMatrix();
     glPopAttrib();
     glPushMatrix();
-}
+} */
 
