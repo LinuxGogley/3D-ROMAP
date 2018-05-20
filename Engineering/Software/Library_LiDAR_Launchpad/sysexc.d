@@ -1,0 +1,9 @@
+.\sysexc.o: driverlib\sysexc.c
+.\sysexc.o: C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
+.\sysexc.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+.\sysexc.o: driverlib\../inc/hw_ints.h
+.\sysexc.o: driverlib\../inc/hw_sysctl.h
+.\sysexc.o: driverlib\../inc/hw_sysexc.h
+.\sysexc.o: driverlib\../inc/hw_types.h
+.\sysexc.o: driverlib\../driverlib/debug.h
+.\sysexc.o: driverlib\../driverlib/interrupt.h
