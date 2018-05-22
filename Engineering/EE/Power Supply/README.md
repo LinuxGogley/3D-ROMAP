@@ -1,2 +1,2 @@
 # Power Supply
-All documentation pertaining to the power supply.
+Schematic in PDF format, with directories containing source files and documentation pertaining to the power supply.
