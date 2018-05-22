@@ -1,0 +1,125 @@
+(ExpressProject "3D-ROMAP PSU"
+  (ProjectVersion "19981106")
+  (ProjectType "PCB")
+  (Folder "Design Resources"
+    (Folder "Library"
+      (File ".\library1.olb"
+        (Type "Schematic Library"))
+      (File ".\3d-romap.olb"
+        (Type "Schematic Library")))
+    (NoModify)
+    (File ".\3d-romap psu.dsn"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (ANNOTATE_Scope "0")
+    (ANNOTATE_Mode "1")
+    (ANNOTATE_Action "2")
+    (Annotate_Page_Order "0")
+    (ANNOTATE_Reset_References_to_1 "FALSE")
+    (ANNOTATE_No_Page_Number_Change "FALSE")
+    (ANNOTATE_Property_Combine "{Value}{Source Package}{POWER_GROUP}")
+    (ANNOTATE_IncludeNonPrimitive "FALSE")
+    (ANNOTATE_PreserveDesignator "FALSE")
+    (ANNOTATE_PreserveUserEdits "FALSE")
+    (ANNOTATE_Refdes_Control_Required "FALSE")
+    (Update_Instace_for_External_Design "FALSE")
+    (Annotate_type "Default")
+    (width_pages "100")
+    (width_start "80")
+    (width_End "80")
+    (Board_sim_option "VHDL_flow"))
+  (Folder "Outputs")
+  (Folder "Referenced Projects")
+  (PartMRUSelector
+    (TitleBlockANSILarge
+      (LibraryName "C:\CADENCE\SPB_17.2\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (SCHOTTKY
+      (FullPartName "SCHOTTKY.Normal")
+      (LibraryName "C:\USERS\CARNI\DOCUMENTS\SCH\3D-ROMAP.OLB")
+      (DeviceIndex "0"))
+    (R
+      (FullPartName "R.Normal")
+      (LibraryName "C:\USERS\CARNI\DOCUMENTS\SCH\3D-ROMAP.OLB")
+      (DeviceIndex "0"))
+    (CDBC540-G
+      (FullPartName "CDBC540-G.Normal")
+      (LibraryName "C:\USERS\CARNI\DOCUMENTS\SCH\3D-ROMAP.OLB")
+      (DeviceIndex "0"))
+    (Dbreak
+      (FullPartName "Dbreak.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.2\TOOLS\CAPTURE\LIBRARY\PSPICE\BREAKOUT.OLB")
+      (DeviceIndex "0"))
+    (L
+      (FullPartName "L.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.2\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (C
+      (FullPartName "C.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.2\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (GND_POWER
+      (LibraryName "C:\CADENCE\SPB_17.2\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (VCC_BAR
+      (LibraryName "C:\CADENCE\SPB_17.2\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (TPS62175
+      (FullPartName "TPS62175.Normal")
+      (LibraryName "C:\USERS\CARNI\DOCUMENTS\SCH\3D-ROMAP.OLB")
+      (DeviceIndex "0"))
+    (TPS54531
+      (FullPartName "TPS54531.Normal")
+      (LibraryName "C:\USERS\CARNI\DOCUMENTS\SCH\3D-ROMAP.OLB")
+      (DeviceIndex "0")))
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources" ".\3d-romap psu.dsn")
+      (Path "Design Resources" ".\3d-romap psu.dsn" "SCHEMATIC1")
+      (Path "Design Resources" ".\3d-romap psu.dsn" "Design Cache")
+      (Path "Design Resources" "Library")
+      (Path "Design Resources" "Library"
+         "c:\users\carni\documents\sch\3d-romap.olb")
+      (Select "Design Resources" ".\3d-romap psu.dsn" "SCHEMATIC1"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 2 3 -1 -1 -8 -31 0 200 0 420"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 52 1688 52 511")
+        (Scroll "-300 0")
+        (Zoom "65")
+        (Occurrence "/"))
+      (Path "C:\USERS\CARNI\DOCUMENTS\SCH\3D-ROMAP PSU.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "SH2 - DIGITAL PWR"))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 156 1466 156 615")
+        (Scroll "-137 0")
+        (Zoom "65")
+        (Occurrence "/"))
+      (Path "C:\USERS\CARNI\DOCUMENTS\SCH\3D-ROMAP PSU.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "SH1 - COVER"))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 182 1492 182 641")
+        (Scroll "-137 0")
+        (Zoom "65")
+        (Occurrence "/"))
+      (Path "C:\USERS\CARNI\DOCUMENTS\SCH\3D-ROMAP PSU.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "SH3 - MOTOR PWR")))
+  (MPSSessionName "carni"))
