@@ -55,7 +55,7 @@ int main(int argc, char * argv[])
         pc.map_to(color);
 
 	// Generate a .PLY file format of captured point cloud
-	points.export_to_ply("Captured_Frame.ply", frames);
+	points.rs2_export_to_ply(depth,"Captured_Frame.ply", color);
 
         // Upload the color frame to OpenGL
         app_state.tex.upload(color);
