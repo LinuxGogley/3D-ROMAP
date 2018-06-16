@@ -25,23 +25,21 @@ int main(int argc, char * argv[])
     rs2::pipeline pipe;
     pipe.start();
 
-    // While application is still running, update frame on window
-    //while (app) 
-    //{
-        // Wait for the next set of frames from the camera (Blocking)
-        auto frames = pipe.wait_for_frames();
-        auto depth  = frames.get_depth_frame(); // Obtain depth from captured frame
-	auto color  = frames.get_color_frame(); // Obtain color from captured frame
+    // Wait for the next set of frames from the camera (Blocking)
+    auto frames = pipe.wait_for_frames();
+
+    // Depth and color capture
+    auto depth  = frames.get_depth_frame(); // Obtain depth from captured frame
+    auto color  = frames.get_color_frame(); // Obtain color from captured frame
         
-	// Generate pointcloud/texture mapping
-        points = pc.calculate(depth);
+    // Generate pointcloud/texture mapping
+    points = pc.calculate(depth);
 
-        // Point Cloud object maps color from frame
-        pc.map_to(color);
+    // Point Cloud object maps color from frame
+    pc.map_to(color);
 
-	// Generate a .PLY file format of captured point cloud
-	points.export_to_ply("Captured_Frame.ply",frames);
-    //}
+    // Generate a .PLY file format of captured point cloud
+    points.export_to_ply("Captured_Frame.ply",color);
 
     return 0;
 }
