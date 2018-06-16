@@ -1,5 +1,7 @@
 /***********************************************************
- * Author: Daniel Tran
+ * Author:  Daniel Tran
+ *	    Liam Gogley
+ * 
  * Project: 3D-ROMAP Senior Project
  * Purpose: The following .cpp file will utilize the Intel
  *          realsense camera to stream and capture frame
@@ -7,7 +9,7 @@
  *          and a point cloud is generated and saved to
  *          a polygon file format (.PLY).
  *
- * Version 0.01 - Last Editted 6/14/18
+ * Version 0.02 - Last Editted 6/15/18
  ***********************************************************/
 
 
