@@ -12,24 +12,9 @@
 
 
 #include <librealsense2/rs.hpp> // Include RealSense Cross Platform API
-#include "example.hpp"          // Include short list of convenience functions for rendering
-#include <algorithm>            // std::min, std::max
-
-
-// Helper functions
-void register_glfw_callbacks(window& app, glfw_state& app_state);
 
 int main(int argc, char * argv[])
 {
-    // Create an OpenGL window for rendering
-    window app(1280, 720, "3D-ROMAP Frame Capture Test");
-
-    // Generate Object to manage viewing state
-    glfw_state app_state;
-
-    // Register callbacks for Point Cloud manipulation
-    register_glfw_callbacks(app, app_state);
-
     //Point Cloud Object for PC calculation/Texture rendering
     rs2::pointcloud pc;
 
@@ -41,8 +26,8 @@ int main(int argc, char * argv[])
     pipe.start();
 
     // While application is still running, update frame on window
-    while (app) 
-    {
+    //while (app) 
+    //{
         // Wait for the next set of frames from the camera (Blocking)
         auto frames = pipe.wait_for_frames();
         auto depth  = frames.get_depth_frame(); // Obtain depth from captured frame
@@ -55,14 +40,8 @@ int main(int argc, char * argv[])
         pc.map_to(color);
 
 	// Generate a .PLY file format of captured point cloud
-	points.export_to_ply("Captured_Frame.ply", frames);
-
-        // Upload the color frame to OpenGL
-        app_state.tex.upload(color);
-
-        // Generate the Point Cloud for viewing
-        draw_pointcloud(app.width(), app.height(), app_state, points);
-    }
+	points.export_to_ply("Captured_Frame.ply",frames);
+    //}
 
     return 0;
 }
