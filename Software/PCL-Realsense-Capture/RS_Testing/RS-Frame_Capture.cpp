@@ -1,6 +1,6 @@
 /***********************************************************
  * Author:  Daniel Tran
- *	        Liam Gogley
+ *          Liam Gogley
  * 
  * Project: 3D-ROMAP Senior Project
  * Purpose: The following .cpp file will utilize the Intel
@@ -9,9 +9,10 @@
  *          and a point cloud is generated and saved to
  *          a polygon file format (.PLY).
  *
- * Version 0.03 - Last Editted 6/20/18
+ * Rev:     Map to color first, then store points.
+ *
+ * Version 0.04 - Last Editted 6/20/18
  ***********************************************************/
-
 
 #include <librealsense2/rs.hpp> // Include RealSense Cross Platform API
 #include <pcl/io/pcd_io.h>
@@ -25,7 +26,7 @@ void Load_PCDFile(void);
 
 int main(int argc, char * argv[])
 {
-     pcl::PointCloud<pcl::PointXYZ> cloud; // Cloud from PCL
+    pcl::PointCloud<pcl::PointXYZ> cloud; // Cloud from PCL
 
     //Point Cloud Object for PC calculation/Texture rendering
     rs2::pointcloud pc;
@@ -44,11 +45,11 @@ int main(int argc, char * argv[])
     auto depth  = frames.get_depth_frame(); // Obtain depth from captured frame
     auto color  = frames.get_color_frame(); // Obtain color from captured frame
         
-    // Generate pointcloud/texture mapping
-    points = pc.calculate(depth);
-
     // Point Cloud object maps color from frame
     pc.map_to(color);
+    
+    // Generate pointcloud/texture mapping
+    points = pc.calculate(depth);
 
     // Convert data captured from Realsense camera to PCL
     auto sp = points.get_profile().as<rs2::video_stream_profile>();
@@ -57,6 +58,7 @@ int main(int argc, char * argv[])
     cloud.is_dense = false;
     cloud.points.resize(points.size());
     auto ptr = points.get_vertices();
+    
     for (auto& p : cloud.points)
     {
         p.x = ptr->x;
@@ -70,10 +72,11 @@ int main(int argc, char * argv[])
     pcl::io::savePCDFileASCII("Captured_Frame.pcd", cloud);
     cout << "Captured_Frame.pcd successfully generated. " << endl; 
     
-    Load_PCDFile(); // Load te PCD File and display the data points (Testing)
+    Load_PCDFile(); // Load the PCD File and display the data points (Testing)
    
     return 0;
 }
+
 // Function will load PCD file generated and display data points of cloud
 void Load_PCDFile(void)
 {
