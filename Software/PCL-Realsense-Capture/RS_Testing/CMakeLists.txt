@@ -24,3 +24,11 @@ if( realsense2_FOUND )
   # Additional Dependencies
   target_link_libraries( RS-Frame_Capture ${realsense2_LIBRARY} )
 endif()
+
+find_package(PCL 1.8 REQUIRED COMPONENTS common io)
+include_directories(${PCL_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
+target_link_libraries(RS-Frame_Capture ${PCL_COMMON_LIBRARIES} ${PCL_IO_LIBRARIES})
+
+
