@@ -7,11 +7,11 @@
  *          realsense camera to stream and capture frame
  *          data of the environment. Color is then applied
  *          and a point cloud is generated and saved to
- *          a polygon file format (.PLY).
+ *          a Point Cloud Data format (.PCD).
  *
- * Rev:     Map to color first, then store points.
+ * Rev:     Color coordinate data added for mapping.
  *
- * Version 0.04 - Last Editted 6/20/18
+ * Version 0.05 - Last Editted 6/20/18
  ***********************************************************/
 
 #include <librealsense2/rs.hpp> // Include RealSense Cross Platform API
@@ -26,29 +26,30 @@ void Load_PCDFile(void);
 
 int main(int argc, char * argv[])
 {
-    pcl::PointCloud<pcl::PointXYZ> cloud; // Cloud from PCL
+    pcl::PointCloud<pcl::PointXYZRGB> cloud; // Cloud from PCL
 
     //Point Cloud Object for PC calculation/Texture rendering
     rs2::pointcloud pc;
 
-    // Points Object to display last generated pointcloud before frame drop
+    // Points & Video Frame Objects to generate pointcloud
     rs2::points points;
+    rs2::points texture;
 
     // Declare RealSense Pipeline (Device/Sensors) and stream with default config
     rs2::pipeline pipe;
     pipe.start();
 
-    // Wait for the next set of frames from the camera (Blocking)
-    auto frames = pipe.wait_for_frames();
+    // Capture 30 frames to give autoexposure, etc. a chance to settle
+    for (auto i = 0; i < 30; ++i) auto frames = pipe.wait_for_frames();
 
     // Depth and color capture
     auto depth  = frames.get_depth_frame(); // Obtain depth from captured frame
     auto color  = frames.get_color_frame(); // Obtain color from captured frame
         
     // Point Cloud object maps color from frame
-    pc.map_to(color);
+    texture = pc.map_to(color);
     
-    // Generate pointcloud/texture mapping
+    // Generate pointcloud depth mapping
     points = pc.calculate(depth);
 
     // Convert data captured from Realsense camera to PCL
@@ -57,14 +58,28 @@ int main(int argc, char * argv[])
     cloud.height = sp.height();
     cloud.is_dense = false;
     cloud.points.resize(points.size());
-    auto ptr = points.get_vertices();
+
+    // Depth and Texture pointers for coordinates
+    auto d_ptr = points.get_vertices();
+    auto t_ptr = points.get_texture_coordinates();
+   
+    /**
+     * Coordinates for texture are u and v from "get_texture_coordinates"
+     * need way to match color to depth coordinates
+     */
     
+    ///////////////////////////////////////////////////
+    p = t_ptr->u;
+    p = t_ptr->v;
+    ///////////////////////////////////////////////////
+
     for (auto& p : cloud.points)
     {
-        p.x = ptr->x;
-        p.y = ptr->y;
-        p.z = ptr->z;
-        ptr++;
+        p.x = d_ptr->x;
+        p.y = d_ptr->y;
+        p.z = d_ptr->z;
+
+        d_ptr++;
     }
 
     // Take Cloud Data and write to .PCD File Format
