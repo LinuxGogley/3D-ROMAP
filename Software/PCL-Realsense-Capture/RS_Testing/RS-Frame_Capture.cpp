@@ -53,6 +53,7 @@ int main(int argc, char * argv[])
 
     // Points Object to display last generated pointcloud before frame drop
     rs2::points points;
+    rs2::points texture;
 
     // Declare RealSense Pipeline (Device/Sensors) and stream with default config
     rs2::pipeline pipe;
@@ -67,7 +68,7 @@ int main(int argc, char * argv[])
     auto color  = frames.get_color_frame(); // Obtain color from captured frame
 
     // Pointcloud object maps color from frame
-    texture = pc.map_to(color);    
+    texture = pc.calculate(color);    
 
     // Generate pointcloud mapping
     points = pc.calculate(depth);
