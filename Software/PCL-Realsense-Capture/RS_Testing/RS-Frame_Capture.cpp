@@ -18,6 +18,7 @@
  ***********************************************************/
 
 #include <iostream>
+
 // Intel Realsense Headers
 #include <librealsense2/rs.hpp> // Include RealSense Cross Platform API
 
@@ -46,6 +47,7 @@ int main(int argc, char * argv[])
     //pcl::PointCloud<pcl::PointXYZ> cloud;   // Cloud from PCL
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
     pcl::PointCloud<pcl::PointXYZ>::Ptr newCloud (new pcl::PointCloud<pcl::PointXYZ>);
+
     //Point Cloud Object for PC calculation/Texture rendering
     rs2::pointcloud pc;
 
@@ -57,9 +59,10 @@ int main(int argc, char * argv[])
     pipe.start();
 
     // Wait for frames from the camera to settle
-    for (auto i = 0; i < 30; ++i) auto frames = pipe.wait_for_frames();
+    for (auto i = 0; i < 30; ++i) pipe.wait_for_frames();
 
     // Depth and color capture
+    auto frames = pipe.wait_for_frames();
     auto depth  = frames.get_depth_frame(); // Obtain depth from captured frame
     auto color  = frames.get_color_frame(); // Obtain color from captured frame
 
