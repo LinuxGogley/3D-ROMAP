@@ -31,12 +31,12 @@ int main(int argc, char * argv[])
     auto frames = pipe.wait_for_frames();
     auto depth  = frames.get_depth_frame(); // Obtain depth from captured frame
     auto color  = frames.get_color_frame(); // Obtain color from captured frame
+    
+    // Point Cloud object maps color from frame
+    pc.map_to(color);
         
     // Generate pointcloud/texture mapping
     points = pc.calculate(depth);
-
-    // Point Cloud object maps color from frame
-//    pc.map_to(color);
 
     // Generate a .PLY file format of captured point cloud
     points.export_to_ply("Captured_Frame.ply", color);
