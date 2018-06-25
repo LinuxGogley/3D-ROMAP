@@ -42,7 +42,7 @@ void Load_PCDFile(void);
 int main(int argc, char * argv[])
 {
     // Object Definitions
-    pcl::PointCloud<pcl::PointXYZRBGA>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGBA>);
+    pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGBA>);
     pcl::PointCloud<pcl::PointXYZRGBA>::Ptr newCloud (new pcl::PointCloud<pcl::PointXYZRGBA>);
 
     //Point Cloud Object for PC calculation/Texture rendering
@@ -79,21 +79,21 @@ int main(int argc, char * argv[])
     cloud->is_dense = false;
     cloud->points.resize(points.size());
     
-    auto ptr = points.get_vertices();             // Get Vertices
+    auto d_ptr = points.get_vertices();             // Get Vertices
     
     for (auto& p : cloud->points)
     {
-        p.x = ptr->x;
-        p.y = ptr->y;
-        p.z = ptr->z;
-	p.a = color.get_bits_per_pixel();    // Bits per pixel 'a' from color
-        ptr++;
+        p.x = d_ptr->x;
+        p.y = d_ptr->y;
+        p.z = d_ptr->z;
+        p.a = color.get_bits_per_pixel();        // Bits per pixel 'a' from color
+        d_ptr++;
     }
     
     //========================================
     // Filter PointCloud (PassThrough Method)
     //========================================
-    pcl::PassThrough<pcl::PointXYZ> Cloud_Filter; // Create the filtering object
+    pcl::PassThrough<pcl::PointXYZRGBA> Cloud_Filter; // Create the filtering object
     Cloud_Filter.setInputCloud (cloud);           // Input generated cloud to filter
     Cloud_Filter.setFilterFieldName ("z");        // Set field name to Z-coordinate
     Cloud_Filter.setFilterLimits (0.0, 1.0);      // Set accepted interval values
@@ -120,7 +120,7 @@ int main(int argc, char * argv[])
 void Load_PCDFile(void)
 {
     // Generate object to store cloud in .pcd file
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloudView (new pcl::PointCloud<pcl::PointXYZ>);
+    pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloudView (new pcl::PointCloud<pcl::PointXYZRGBA>);
     
     pcl::io::loadPCDFile ("Captured_Frame.pcd", *cloudView); // Load .pcd File
     
@@ -132,7 +132,7 @@ void Load_PCDFile(void)
     // Set background of viewer to black
     viewer->setBackgroundColor (0, 0, 0); 
     // Add generated point cloud and identify with string "Room Cloud"
-    viewer->addPointCloud<pcl::PointXYZ> (cloudView, "Cloud");
+    viewer->addPointCloud<pcl::PointXYZRGBA> (cloudView, "Cloud");
     // Default size for rendered points
     viewer->setPointCloudRenderingProperties (pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 1, "Cloud");
     // Viewer Properties
