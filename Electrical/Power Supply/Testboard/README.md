@@ -2,7 +2,7 @@
   DCDC buck converter test board with 5v and 12v tests.
 
   Tested with the following resistance values
-  5v  -> 1.96k
+  5v -> 1.96k
   12v -> 714
 
   Approximate voltage is 4.9v and 12v, due to lower resistor value for 5v.
