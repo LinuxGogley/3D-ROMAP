@@ -9,4 +9,5 @@
 
 ## Noise
   Upon testing, an approximate 1Vpp is detected close to the switching frequency.  This
-  has been tested via analysis and inspection.
+  has been tested via analysis and inspection, and has caused a design change to exclude 
+  the 5v source due to its high inductance requirement.
