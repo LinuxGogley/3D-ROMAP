@@ -1,4 +1,4 @@
-# Intel Realsense Capture
+# Power Supply - Test Board
   DCDC buck converter test board with 5v and 12v tests.
 
   Tested with the following resistance values:
