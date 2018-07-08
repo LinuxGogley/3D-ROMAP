@@ -8,7 +8,11 @@
   Approximate voltage is 4.9v and 12v, due to lower resistor value for 5v.
 
 ## Noise
-  Upon testing, an approximate 1Vpp is detected close to the switching frequency.  This
+  Upon testing, an approximate 1Vpp is detected due to low inductance.  This
   has been tested via analysis and inspection.
+
+  The 12v router supply will be shared with a 5v LDO to increase current draw,
+  lower cost, and lower the minimum inductor value.
   
-  Testing has prompted design change to exclude the 5v source due to its high inductance requirement.
+  Testing has prompted design change to use a larger inductor on sources, and
+  5v LDO source to reduce ripple.
