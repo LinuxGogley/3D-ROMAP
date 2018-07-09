@@ -175,7 +175,8 @@
          "c:\users\carni\documents\sch\3d-romap.olb")
       (Path "Outputs")
       (Select "Design Resources"
-         "c:\users\carni\documents\sch\3d-romap final psu.dsn"))
+         "c:\users\carni\documents\sch\3d-romap final psu.dsn" "SCHEMATIC1"
+         "SH3 - SWITCHING PWR"))
     (HierarchyView)
     (Doc
       (Type "COrCapturePMDoc")
@@ -183,10 +184,16 @@
         (Placement "44 2 3 -1 -1 -8 -31 0 200 0 420"))
       (Tab 0))
     (Doc
+      (Type "TextFile")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 156 1466 156 615"))
+      (Path "c:\users\carni\documents\sch\3d-romap final psu.bom")
+      (Scroll "0"))
+    (Doc
       (Type "COrSchematicDoc")
       (Frame
         (Placement "44 0 1 -1 -1 -8 -31 52 1096 52 511")
-        (Scroll "480 209")
+        (Scroll "0 0")
         (Zoom "130")
         (Occurrence "/"))
       (Path "C:\USERS\CARNI\DOCUMENTS\SCH\3D-ROMAP FINAL PSU.DSN")
@@ -211,12 +218,6 @@
         (Occurrence "/"))
       (Path "C:\USERS\CARNI\DOCUMENTS\SCH\3D-ROMAP FINAL PSU.DSN")
       (Schematic "SCHEMATIC1")
-      (Page "SH2 - LDO / CONN"))
-    (Doc
-      (Type "TextFile")
-      (Frame
-        (Placement "44 0 1 -1 -1 -8 -31 156 1466 156 615"))
-      (Path "c:\users\carni\documents\sch\3d-romap final psu.bom")
-      (Scroll "0")))
+      (Page "SH2 - LDO / CONN")))
   (MPSSessionName "carni")
   (ISPCBBASICLICENSE "false"))
