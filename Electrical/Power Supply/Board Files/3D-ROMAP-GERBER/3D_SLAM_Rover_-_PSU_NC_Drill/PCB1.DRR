@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------
-NCDrill File Report For: PCB1.CMPcbDoc   2018-07-16  23:40:07
+NCDrill File Report For: PCB1.CMPcbDoc   2018-07-17  00:30:03
 ---------------------------------------------------------------------------
 
 Layer Pair : Top Layer to Bottom Layer
@@ -9,11 +9,11 @@ Tool         Hole Size           Hole Type     Hole Count Plated       Tool Trav
 ---------------------------------------------------------------------------
 T1        6mil (0.1524mm)          Round          2                0.13 Inch (3.19 mm)
 T2        10mil (0.254mm)          Round          10               10.22 Inch (259.54 mm)
-T3        13mil (0.3302mm)         Round          64               14.80 Inch (376.03 mm)
+T3        13mil (0.3302mm)         Round          64               14.78 Inch (375.52 mm)
 T4        28mil (0.7112mm)         Round          16               13.95 Inch (354.36 mm)
 T5        50mil (1.27mm)           Round          14               17.70 Inch (449.68 mm)
 T6        138mil (3.5052mm)        Round          4                15.43 Inch (391.84 mm)
 ---------------------------------------------------------------------------
-Totals                                            110              72.23 Inch (1834.63 mm)
+Totals                                            110              72.21 Inch (1834.12 mm)
 
 Total Processing Time (hh:mm:ss) : 00:00:00

@@ -7,8 +7,6 @@ Generating : Top Layer
 
     Adding Layer      : Top Layer
 
-    Adding Layer      : Outline
-
     Adding Layer      : Multi-Layer
 
 
@@ -62,7 +60,6 @@ Used DCodes :
     D56
     D57
     D58
-    D59
 *************************************************************
 
 *************************************************************
@@ -71,14 +68,13 @@ Generating : Bottom Layer
 
     Adding Layer      : Bottom Layer
 
-    Adding Layer      : Outline
-
     Adding Layer      : Multi-Layer
 
 
 Used DCodes :
-    D45
     D46
+    D47
+    D50
     D51
     D52
     D53
@@ -87,7 +83,6 @@ Used DCodes :
     D56
     D57
     D58
-    D59
 *************************************************************
 
 *************************************************************
@@ -98,13 +93,11 @@ Generating : Bottom Pad Master
 
     Adding Layer      : Multi-Layer
 
-    Adding Layer      : Outline
-
 
 Used DCodes :
+    D50
     D51
     D52
-    D53
 *************************************************************
 
 *************************************************************
@@ -114,8 +107,6 @@ Generating : Top Pad Master
     Adding Layer      : Top Layer
 
     Adding Layer      : Multi-Layer
-
-    Adding Layer      : Outline
 
 
 Used DCodes :
@@ -154,9 +145,9 @@ Used DCodes :
     D42
     D43
     D44
+    D50
     D51
     D52
-    D53
 *************************************************************
 
 *************************************************************
@@ -165,16 +156,14 @@ Generating : Top Overlay
 
     Adding Layer      : Top Overlay
 
-    Adding Layer      : Outline
-
 
 Used DCodes :
-    D45
+    D46
+    D59
     D60
     D61
     D62
     D63
-    D64
 *************************************************************
 
 *************************************************************
@@ -182,8 +171,6 @@ Generating : Top Paste
       File : PCB1.GTP
 
     Adding Layer      : Top Paste
-
-    Adding Layer      : Outline
 
     Adding Layer      : Top Layer
 
@@ -234,14 +221,13 @@ Generating : Top Solder
 
     Adding Layer      : Top Solder
 
-    Adding Layer      : Outline
-
     Adding Layer      : Top Layer
 
     Adding Layer      : Multi-Layer
 
 
 Used DCodes :
+    D64
     D65
     D66
     D67
@@ -284,7 +270,6 @@ Used DCodes :
     D104
     D105
     D106
-    D107
 *************************************************************
 
 *************************************************************
@@ -293,14 +278,13 @@ Generating : Bottom Solder
 
     Adding Layer      : Bottom Solder
 
-    Adding Layer      : Outline
-
     Adding Layer      : Bottom Layer
 
     Adding Layer      : Multi-Layer
 
 
 Used DCodes :
+    D99
     D100
     D101
     D102
@@ -309,14 +293,11 @@ Used DCodes :
     D105
     D106
     D107
-    D108
 *************************************************************
 
 *************************************************************
 Generating : Outline
       File : PCB1.Outline
-
-    Adding Layer      : Outline
 
     Adding Layer      : Outline
 
@@ -330,8 +311,6 @@ Generating : Mechanical 3
 
     Adding Layer      : Mechanical 3
 
-    Adding Layer      : Outline
-
 
 Used DCodes :
 *************************************************************
@@ -342,11 +321,9 @@ Generating : Assembly Top
 
     Adding Layer      : Assembly Top
 
-    Adding Layer      : Outline
-
 
 Used DCodes :
-    D45
+    D46
 *************************************************************
 
 *************************************************************
@@ -355,14 +332,12 @@ Generating : 3D Top
 
     Adding Layer      : 3D Top
 
-    Adding Layer      : Outline
-
 
 Used DCodes :
-    D45
+    D46
+    D108
     D109
     D110
-    D111
 *************************************************************
 
 *************************************************************
@@ -371,13 +346,11 @@ Generating : Courtyard Top
 
     Adding Layer      : Courtyard Top
 
-    Adding Layer      : Outline
-
 
 Used DCodes :
-    D45
+    D46
+    D108
     D110
-    D111
 *************************************************************
 
 *************************************************************
@@ -386,18 +359,14 @@ Generating : Courtyard Bottom
 
     Adding Layer      : Courtyard Bottom
 
-    Adding Layer      : Outline
-
 
 Used DCodes :
-    D112
+    D111
 *************************************************************
 
 *************************************************************
 Generating : Drill Drawing
       File : PCB1.GD1
-
-    Adding Layer      : Outline
 
     Adding Drill Pair : Top Layer-Bottom Layer
 
@@ -405,15 +374,13 @@ Generating : Drill Drawing
 
 
 Used DCodes :
+    D112
     D113
-    D114
 *************************************************************
 
 *************************************************************
 Generating : Drill Guide
       File : PCB1.GG1
-
-    Adding Layer      : Outline
 
     Adding Drill Pair : Top Layer-Bottom Layer
 
@@ -421,6 +388,6 @@ Generating : Drill Guide
 
 
 Used DCodes :
-    D113
+    D112
 *************************************************************
 
