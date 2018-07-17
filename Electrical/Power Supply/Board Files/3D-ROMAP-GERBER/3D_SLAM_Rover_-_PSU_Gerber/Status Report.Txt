@@ -1,0 +1,28 @@
+Output: Gerber Files
+Type  : Gerber
+From  : Variant [[No Variations]] of Project [3D SLAM Rover - PSU.PrjPcb]
+   Generated File[PCB1.GTL]
+   Generated File[PCB1.GBL]
+   Generated File[PCB1.GPB]
+   Generated File[PCB1.GPT]
+   Generated File[PCB1.GTO]
+   Generated File[PCB1.GTP]
+   Generated File[PCB1.GTS]
+   Generated File[PCB1.GBS]
+   Generated File[PCB1.Outline]
+   Generated File[PCB1.GM3]
+   Generated File[PCB1.Assembly Top]
+   Generated File[PCB1.3D Top]
+   Generated File[PCB1.Courtyard Top]
+   Generated File[PCB1.Courtyard Bottom]
+   Generated File[PCB1.GD1]
+   Generated File[PCB1.GG1]
+   Generated File[PCB1.RUL]
+   Generated File[PCB1.EXTREP]
+   Generated File[PCB1.REP]
+
+
+Files Generated   : 19
+Documents Printed : 0
+
+Finished Output Generation At 23:45:11 On 2018-07-16
