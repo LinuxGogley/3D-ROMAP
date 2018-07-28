@@ -9,10 +9,12 @@
  *          and a point cloud is generated and saved to
  *          a point cloud data format (.pcd).
  * 
- * Rev:     Color data to pointer.
+ * Version 0.06 - Last Editted 6/22/18
  * 
+ * Rev:     Implementation of visualizer and passthrough
+ *          filter to generated point cloud.  Color data
+ *	    pulled from sensor as "points" test.
  * 
- * Version 0.07 - Last Editted 6/24/18
  ***********************************************************/
 
 #include <iostream>
@@ -42,33 +44,36 @@ void Load_PCDFile(void);
 int main(int argc, char * argv[])
 {
     // Object Definitions
-    pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGBA>);
-    pcl::PointCloud<pcl::PointXYZRGBA>::Ptr newCloud (new pcl::PointCloud<pcl::PointXYZRGBA>);
-
+    //pcl::PointCloud<pcl::PointXYZ> cloud;   // Cloud from PCL
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
+    pcl::PointCloud<pcl::PointXYZ>::Ptr newCloud (new pcl::PointCloud<pcl::PointXYZ>);
+   
     //Point Cloud Object for PC calculation/Texture rendering
     rs2::pointcloud pc;
 
-    // Points Object to store data points & color
+    // Points Object to display last generated pointcloud before frame drop
     rs2::points points;
+    rs2::points texture;
 
     // Declare RealSense Pipeline (Device/Sensors) and stream with default config
     rs2::pipeline pipe;
     pipe.start();
 
     // Wait for frames from the camera to settle
-    for (auto i = 0; i < 29; ++i) pipe.wait_for_frames();
+    for (auto i = 0; i < 30; ++i) pipe.wait_for_frames();
 
     // Depth and color capture
     auto frames = pipe.wait_for_frames();
     auto depth  = frames.get_depth_frame(); // Obtain depth from captured frame
     auto color  = frames.get_color_frame(); // Obtain color from captured frame
 
-    // Point cloud object maps color from frame
+    // Pointcloud object maps color from frame
     pc.map_to(color);
-    
-    // Generate point cloud mapping
+   
+    // Generate pointcloud mapping
     points = pc.calculate(depth);
 
+    
     //================================
     // Realsense Data ---> PCL Format
     //================================
@@ -79,21 +84,32 @@ int main(int argc, char * argv[])
     cloud->is_dense = false;
     cloud->points.resize(points.size());
     
-    auto d_ptr = points.get_vertices();             // Get Vertices
+    auto ptr = points.get_vertices();             // Get Vertices
+    //auto t_ptr = texture.get_texture_coordinates(); // Get Texture coordinates
+   
+    //====================================
+    // Coordinates for texture are u and v
+    // from "get_texture_coordinates"
+    //====================================
+    
+    // loop begin
+	//p = t_ptr->u;
+	//p = t_ptr->v;
+    // end loop
     
     for (auto& p : cloud->points)
     {
-        p.x = d_ptr->x;
-        p.y = d_ptr->y;
-        p.z = d_ptr->z;
-        p.a = color.get_bits_per_pixel();        // Bits per pixel 'a' from color
-        d_ptr++;
+        p.x = ptr->x;
+        p.y = ptr->y;
+        p.z = ptr->z;
+        ptr++;
     }
     
+
     //========================================
     // Filter PointCloud (PassThrough Method)
     //========================================
-    pcl::PassThrough<pcl::PointXYZRGBA> Cloud_Filter; // Create the filtering object
+    pcl::PassThrough<pcl::PointXYZ> Cloud_Filter; // Create the filtering object
     Cloud_Filter.setInputCloud (cloud);           // Input generated cloud to filter
     Cloud_Filter.setFilterFieldName ("z");        // Set field name to Z-coordinate
     Cloud_Filter.setFilterLimits (0.0, 1.0);      // Set accepted interval values
@@ -120,7 +136,7 @@ int main(int argc, char * argv[])
 void Load_PCDFile(void)
 {
     // Generate object to store cloud in .pcd file
-    pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloudView (new pcl::PointCloud<pcl::PointXYZRGBA>);
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloudView (new pcl::PointCloud<pcl::PointXYZ>);
     
     pcl::io::loadPCDFile ("Captured_Frame.pcd", *cloudView); // Load .pcd File
     
@@ -132,13 +148,13 @@ void Load_PCDFile(void)
     // Set background of viewer to black
     viewer->setBackgroundColor (0, 0, 0); 
     // Add generated point cloud and identify with string "Room Cloud"
-    viewer->addPointCloud<pcl::PointXYZRGBA> (cloudView, "Cloud");
+    viewer->addPointCloud<pcl::PointXYZ> (cloudView, "Cloud");
     // Default size for rendered points
     viewer->setPointCloudRenderingProperties (pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 1, "Cloud");
     // Viewer Properties
     //viewer->addCoordinateSystem (1.0); // Display XYZ axis
     viewer->initCameraParameters();  // Camera Parameters for ease of viewing
-    
+    /*
     cout << "Loaded " << cloudView->width * cloudView->height
          << " data points from Captured_Frame.pcd with the following fields: "
          << std::endl;
@@ -149,7 +165,7 @@ void Load_PCDFile(void)
              << " "    << cloudView->points[i].z 
              << std::endl;
     }
-    
+    */
     while (!viewer->wasStopped ())
     {
         viewer->spinOnce (100);
