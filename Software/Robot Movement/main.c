@@ -1,10 +1,12 @@
-// main.c
-// Runs on TM4C
-// Robot car that is controlled via bluetooth.
-// WASD commands control movement
-// Dedicated buttons to control speed
-// Mark Munoz
-// November 20, 2018
+/***********************************************************************;
+;      File name: main.c                                                ; 
+;                                                                       ;
+;      Created by: Mark Munoz, Nov. 2018                                ; 
+;                                                                       ; 
+;      Bluetooth controlled robotic platform for 3DROMAP senior design. ;
+;      Standard WASD directional movement control with 3 selectable     ;
+;      speeds: 50%, 75%, or 100%. Runs on TM4C                          ;
+/***********************************************************************/
 
 // 1. Pre-processor Directives Section
 // include header files that contain 
@@ -24,53 +26,50 @@ void PortF_Init(void);
 	
 // 3. Main loop
 int main(void){
-	const unsigned long period = 2000;  // (40MHz PLL clk / 2000) = 20KHz PWM freq
+	const unsigned long period = 1000;  // (40MHz PLL clk / period / 2) = 20KHz PWM 
 	unsigned long dutyA, dutyB, dutyMax;
 	char mode [6];            // controls action based on bluetooth input
 	PLL_Init();               // PLL w/ 40Mhz bus clk
 	UART1_Init();             // HC05 UART 57600 baud, 8O1 
-	PortF_Init();             // debug LEDs
+	PortF_Init();             
 	Direction_Init();         // Init PD0 and PD1 as motor direction signals, PD2 as output enable
     GPIO_PORTD_DATA_R |= 0x04;// enables motors output
-	PWM0A_Init(period, 6);    // initialize PB4 as motor 1 PWM(initially off)
-	PWM0B_Init(period, 6);    // initialize PB5 as motor 2 PWM(initially off)
-	dutyMax = period/2;       // initially 50% speed
+	PWM0A_Init(period, 3); 
+	PWM0B_Init(period, 3);    
+	dutyMax = period/2;       
 
 	//**************Configure bluetooth Commands*************
-	//UART1_OutString("AT+NAME=3D-ROMAP\r\n");     // set custom name	
-    //UART1_OutString("AT+PSWD=0159\r\n");         // set custom password
-	//UART1_OutString("AT+UART=57600,0,1\r\n");    // 57600, 8O1
+	//UART1_OutString("AT+NAME=3D-ROMAP\r\n");    
+    //UART1_OutString("AT+PSWD=0159\r\n");         
+	//UART1_OutString("AT+UART=57600,0,1\r\n");    // 57600 baud, 8O1
 
 	while(1){
-		UART1_InString(mode);         // receive updated mode from bluetooth
+		UART1_InString(mode);           // receive updated mode from bluetooth
 		
 		if(strncmp(mode, "w", 1) == 0){  
 			GPIO_PORTF_DATA_R |=  0x02; // RED LED
 			GPIO_PORTD_DATA_R &= ~0x03; // ensure motors going forward
-			dutyA = dutyB = dutyMax;    // give motors max speed
+			dutyA = dutyB = dutyMax;    
 		}
 		
 		else if(strncmp(mode, "a", 1) == 0){  
 			GPIO_PORTF_DATA_R |= 0x04;  // BLUE LED
-			dutyA = period-dutyMax;     // keep one motor turning
-			dutyB = dutyMax;            // reverse motor PWM
-			GPIO_PORTD_DATA_R |= 0x02;  // motor A going in reverse
-			GPIO_PORTD_DATA_R &=~0x01;  // ensure motor B going forward
+			GPIO_PORTD_DATA_R |= 0x02;  // motor A reverse
+			GPIO_PORTD_DATA_R &=~0x01;  // motor B forward
+			dutyA = dutyB = dutyMax;    
 		}
 		
 		else if(strncmp(mode, "s", 1) == 0){    
 			GPIO_PORTF_DATA_R |= 0x08;  // GEEN LED
-			dutyA = period - dutyMax;   // reverse motors PWM
-			dutyB = period - dutyMax;   // reverse motors PWM
-			GPIO_PORTD_DATA_R |= 0x03;  // reverse motors direction
+			GPIO_PORTD_DATA_R |= 0x03;  // both motors reverse
+			dutyA = dutyB = dutyMax;    
 		}
 		
-		else if(strncmp(mode, "d", 1) == 0){  // ASCII 'd' is received
+		else if(strncmp(mode, "d", 1) == 0){  
 			GPIO_PORTF_DATA_R |= 0x0E;  // WHITE LED
-			dutyB = period-dutyMax;     // give motorB max speed
-			dutyA = dutyMax;            // stop other motor
-			GPIO_PORTD_DATA_R |= 0x01;  // motor B going reverse
-			GPIO_PORTD_DATA_R &=~0x02;  // motor A going forward
+			GPIO_PORTD_DATA_R |= 0x01;  // motor B reverse
+			GPIO_PORTD_DATA_R &=~0x02;  // motor A forward
+			dutyA = dutyB = dutyMax;    
 		}
 		
 		else if(strncmp(mode, "50%", 1) == 0){
@@ -88,20 +87,18 @@ int main(void){
 			dutyMax = period - 2;       // 100% max speed
 		}
 		else if(strncmp(mode, "q", 1) == 0){ 
-			GPIO_PORTD_DATA_R &= ~0x03; // set both motors forward & disable output
-			dutyA = dutyB = 6;          // set pwm to 0
 			GPIO_PORTF_DATA_R &= ~0x0E; // clear debug LEDs
+			GPIO_PORTD_DATA_R &= ~0x03; // set both motors forward 
+			dutyA = dutyB = 3;          // set pwm to 0
 		}
-		
-		PWM0A_Duty(dutyA*.666666667);    // update motor PWMs
-		PWM0B_Duty(dutyB*.666666667);	// run at max 12v (2/3 of 18v)
+		PWM0A_Duty(dutyA*(2/3.0));      // update motor PWMs
+		PWM0B_Duty(dutyB*(2/3.0));      // run at max 12v (2/3 of 18v source)		
 	}
 }
 
 // 4. Subroutines Section
-// DEBUG LEDs
+// Init PortF for debug LEDs
 void PortF_Init(void){ 
-  // GPIO assignments
   volatile unsigned long delay;     // dummy instruction variable
   SYSCTL_RCGC2_R |= 0x00000020;     // 1) F clock
   delay = SYSCTL_RCGC2_R;           // dummy instruction to give setup enough time   
