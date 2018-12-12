@@ -34,16 +34,20 @@ clear
             read -s JETSON
             ;;
         2)
-            xterm -bg black -fg white -hold -e sshpass -f <(printf '%s\n' $JETSON) ssh -l nvidia tegra-ubuntu "roscore" &
+            xterm -bg black -fg white -hold -e sshpass -p "$JETSON" ssh nvidia@tegra-ubuntu \
+            'source /opt/ros/kinetic/setup.bash; source ~/catkin_ws/devel/setup.bash ; roscore' &
             ;;
         3)
-            xterm -bg black -fg white -hold -e sshpass -f <(printf '%s\n' $JETSON) ssh -l nvidia tegra-ubuntu "roslaunch realsense2_ros rs_rgbd.launch" &
+            xterm -bg black -fg white -hold -e sshpass -p "$JETSON" ssh nvidia@tegra-ubuntu \
+            'source /opt/ros/kinetic/setup.bash; source ~/catkin_ws/devel/setup.bash ; roslaunch realsense2_camera rs_rgbd.launch' &
             xterm -bg black -fg white -hold -e "roslaunch rtabmap_ros rtabmap.launch" &
-            xterm -bg black -fg white -hold -e "roslaunch hectorslam_ros ROMAP.launch" &
+            xterm -bg black -fg white -hold -e sshpass -p "$JETSON" ssh nvidia@tegra-ubuntu \
+            'source /opt/ros/kinetic/setup.bash; source ~/catkin_ws/devel/setup.bash ; roslaunch hectorslam_ros ROMAP.launch' &
             ;;
         4)
-            xterm -bg black -fg white -hold -e sshpass -f <(printf '%s\n' $JETSON) ssh nvidia@tegra-ubuntu &
+            xterm -bg black -fg white -hold -e sshpass -p "$JETSON" ssh nvidia@tegra-ubuntu &
             ;;
+
         5)  export JETSON=$NULL ;
             break
             ;;
