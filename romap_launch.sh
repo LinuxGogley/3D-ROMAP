@@ -35,14 +35,13 @@ clear
             ;;
         2)
             xterm -bg black -fg white -hold -e sshpass -p "$JETSON" ssh nvidia@tegra-ubuntu \
-            'source /opt/ros/kinetic/setup.bash; source ~/catkin_ws/devel/setup.bash ; roscore' &
+            'source /opt/ros/kinetic/setup.bash ; source ~/catkin_ws/devel/setup.bash ; roscore' &
             ;;
         3)
             xterm -bg black -fg white -hold -e sshpass -p "$JETSON" ssh nvidia@tegra-ubuntu \
-            'source /opt/ros/kinetic/setup.bash; source ~/catkin_ws/devel/setup.bash ; roslaunch realsense2_camera rs_rgbd.launch' &
-            xterm -bg black -fg white -hold -e "roslaunch rtabmap_ros rtabmap.launch" &
-            xterm -bg black -fg white -hold -e sshpass -p "$JETSON" ssh nvidia@tegra-ubuntu \
-            'source /opt/ros/kinetic/setup.bash; source ~/catkin_ws/devel/setup.bash ; roslaunch hectorslam_ros ROMAP.launch' &
+            'source /opt/ros/kinetic/setup.bash ; source ~/catkin_ws/devel/setup.bash ; sh mapper.sh' &
+            xterm -bg black -fg white -hold -e "sh 3D-ROMAP.sh" &
+            rviz &
             ;;
         4)
             xterm -bg black -fg white -hold -e sshpass -p "$JETSON" ssh nvidia@tegra-ubuntu &
